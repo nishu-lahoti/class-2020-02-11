@@ -1,0 +1,40 @@
+---
+title: "class-2020-02-11"
+author: "Nishu Lahoti"
+date: "2/11/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+
+library(tidyverse)
+library(janitor)
+library(dplyr)
+library(readr)
+library(readxl)
+
+
+enrollment_data <- read_csv('class_enrollment_summary_by_term_2.11.20.csv')
+excel_data <- read_xlsx ('class_enrollment_summary_by_term_2.11.20.xlsx', skip = 3) %>%
+  clean_names(excel_data)
+  
+excel_data
+
+```
+
+## Top 5 Classes by Enrollment in GOV Department
+
+```{r message=FALSE}
+
+excel_data %>% 
+  arrange(desc(Total)) %>%
+  filter(`Course Department` == "Government") %>%
+  arrange(desc(Total)) %>%
+  head(5) %>%
+  select(`Course Title`, `Course Name`, `Instructor Full Name`, `Total`)
+
+
+```
+
+
